@@ -3,16 +3,15 @@
 
     <h1>Content</h1>
 
-    <div>
-      <ul class="tab-title">
-        <li v-for="name in tabList" :class="{active: name===active}" @click="_tabChange(name)">
-          <span>{{name}}</span>
-          <!--<span class="close" v-if="name !== 'default'" @click="closeTab(name)">&times;</span>-->
-        </li>
-      </ul>
-    </div>
-
+    <ul class="tab-title">
+      <li v-for="name in tabList" :class="{active: name===active}" @click="_tabChange(name)">
+        <span>{{name}}</span>
+        <!--<span class="close" v-if="name !== 'default'" @click="closeTab(name)">&times;</span>-->
+      </li>
+    </ul>
+    
     <div class="editor" id="editor"></div>
+    <div class="test">{{ fileList }}</div>
 
   </div>
 </template>
@@ -20,6 +19,7 @@
 <script>
   import ContentA from './components/ContentA.vue';
   import ContentB from './components/ContentB.vue';
+  import Content from './components/Content.vue';
 
   import ace from 'brace';
   import 'brace/mode/javascript';
@@ -31,6 +31,7 @@
       ContentB
     },
     props: {
+      fileList,
       editorInfo: {
         type: Object,
         default: {
@@ -59,10 +60,8 @@
       return {
         active: 'default',
         tabList: ['HTML', 'JAVASCRIPT', 'CSS'],
-        editorHtml: null,
-        editorJavascript: null,
-        editorCss: null,
-        editor: null
+        editor: null,
+        result: ''
       }
     },
     computed:{
@@ -106,6 +105,9 @@
       },
       getContentName() {
         return this.$refs.cmpContent.contentName || 'ContentA';
+      },
+      showData (){
+        console.log(this.fileList);
       }
     },
     mounted() {
@@ -141,5 +143,9 @@
   .editor {
     width: 100%;
     height: 500px;
+  }
+
+  .test {
+    background-color: #11ffee;
   }
 </style>

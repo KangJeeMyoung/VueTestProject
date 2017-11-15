@@ -6,7 +6,7 @@
         <h1>Guide App</h1>
 
         <cmp-nav v-on:getVueFile="getVueFile"></cmp-nav>
-        <cmp-content></cmp-content>
+        <cmp-content :fileList="vueFileList"></cmp-content>
         <cmp-result ref="cmpResult" :fileList="vueFileList"></cmp-result>
 
         <!--<cmp-content ref="cmpContent" @emitContent="emitContent"></cmp-content>-->
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import CodeParser from '../codeParser.js'
+    import CodeParser from './../codeParser.js';
 
     import Nav from './GuideNav.vue';
     import Content from './GuideContent.vue';
@@ -30,7 +30,8 @@
         data() {
             return {
                 isLoading: false,
-                isError: false
+                isError: false,
+                vueFileList: {}
             }
         },
         methods: {
@@ -46,7 +47,7 @@
                 const baseURI = '../../static/';
                 var parser = CodeParser.parse;
                 var vm = this;
-                var fileName = 'Content';
+                var fileName = path;
 
                 if(this.vueFileList[fileName]){
                     return;

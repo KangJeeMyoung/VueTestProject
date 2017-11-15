@@ -3,26 +3,23 @@
 
     <h1>Content</h1>
 
-    <ul class="tab-title">
-      <li v-for="name in tabList" :class="{active: name===active}" @click="_tabChange(name)">
-        <span>{{name}}</span>
-        <!--<span class="close" v-if="name !== 'default'" @click="closeTab(name)">&times;</span>-->
-      </li>
-    </ul>
+    <div>
+      <ul class="tab-title">
+        <li v-for="name in tabList" :class="{active: name===active}" @click="_tabChange(name)">
+          <span>{{name}}</span>
+          <!--<span class="close" v-if="name !== 'default'" @click="closeTab(name)">&times;</span>-->
+        </li>
+      </ul>
+    </div>
 
-    <div class="editor" id="editorHtml"></div>
-    <div class="editor" id="editorJavascript"></div>
-    <div class="editor" id="editorCss"></div>
+    <div class="editor" id="editor"></div>
 
-    <!--<router-view ref="contentView" name="Content" @emitContent="emitContent"></router-view>-->
-    <!--<component ref="cmpContent" :is="content"></component>-->
   </div>
 </template>
 
 <script>
   import ContentA from './components/ContentA.vue';
   import ContentB from './components/ContentB.vue';
-  import Content from './components/Content.vue';
 
   import ace from 'brace';
   import 'brace/mode/javascript';
@@ -33,50 +30,66 @@
       ContentA,
       ContentB
     },
+    props: {
+      editorInfo: {
+        type: Object,
+        default: {
+          html: {
+            theme: 'ace/theme/textmate',
+            mode: 'ace/mode/javascript',
+            readOnly: true,
+            value: 'html - '
+          },
+          javascript: {
+            theme: 'ace/theme/monokai',
+            mode: 'ace/mode/javascript',
+            readOnly: true,
+            value: 'javascript - '
+          },
+          css: {
+            theme: 'ace/theme/monokai',
+            mode: 'ace/mode/javascript',
+            readOnly: true,
+            value: 'css - '
+          }
+        }
+      }
+    },
     data() {
       return {
         active: 'default',
         tabList: ['HTML', 'JAVASCRIPT', 'CSS'],
         editorHtml: null,
         editorJavascript: null,
-        editorCss: null
+        editorCss: null,
+        editor: null
       }
     },
     computed:{
       content(){
-        return this.$route.params.contentName || this.$route.params.name || 'ContentA';
-      },
-      count() {
-        return this.$route.params.count || this.$route.params.cnt || 0;
+//        var value = this.$route.params.contentName || this.$route.params.name || 'ContentA';
+//        this.editorInfo.html.value = value;
+//        this.editorInfo.javascript.value += value;
+//        this.editorInfo.css.value += value;
       }
     },
     methods: {
       _initSettings() {
-        this.editorHtml = this._createEditor({
-          id   : 'editorHtml',
-          theme: 'ace/theme/textmate',
-          value: 'html'
-        });
-
-        this.editorJavascript = this._createEditor({
-          id   : 'editorJavascript',
-          theme: 'ace/theme/monokai',
-          value: 'javascript'
-        });
-
-        this.editorCss = this._createEditor({
-          id   : 'editorCss',
-          theme: 'ace/theme/monokai',
-          value: 'css'
-        });
+        this.editor = ace.edit('editor');
 
         this._tabChange();
       },
-      _createEditor(paramObj) {
-        if ( !paramObj || !paramObj.id ) {
-          return;
-        }
+      _tabChange(name) {
+        this.active = name || 'HTML';
 
+        switch (this.active) {
+          case 'HTML'      : this.setEditor(this.editorInfo.html); break;
+          case 'JAVASCRIPT': this.setEditor(this.editorInfo.javascript); break;
+          case 'CSS'       : this.setEditor(this.editorInfo.css); break;
+          default: break;
+        }
+      },
+      setEditor(paramObj) {
         var defaultObj = {
           theme: 'ace/theme/textmate',
           mode: 'ace/mode/javascript',
@@ -86,41 +99,13 @@
 
         Object.assign( defaultObj, paramObj );
 
-        var editor = ace.edit(defaultObj.id);
-        editor.setTheme(defaultObj.theme);
-        editor.getSession().setMode(defaultObj.mode);
-        editor.setReadOnly(defaultObj.readOnly);
-        editor.setValue(defaultObj.value);
-
-        return editor;
-      },
-      _tabChange(name) {
-        this.active = name || 'HTML';
-
-        var editorHtml = document.getElementById('editorHtml').style;
-        var editorJavascript = document.getElementById('editorJavascript').style;
-        var editorCss = document.getElementById('editorCss').style;
-
-        editorHtml.display = 'none';
-        editorJavascript.display = 'none';
-        editorCss.display = 'none';
-
-        switch (this.active) {
-          case 'HTML'      : editorHtml.display = 'block'; break;
-          case 'JAVASCRIPT': editorJavascript.display = 'block'; break;
-          case 'CSS'       : editorCss.display = 'block'; break;
-          default: break;
-        }
-      },
-      // getHTMLTxt
-      setEditorValue(value) {
-        //this.$data.editor.setValue(value || '', -1);
+        this.editor.setTheme(defaultObj.theme);
+        this.editor.getSession().setMode(defaultObj.mode);
+        this.editor.setReadOnly(defaultObj.readOnly);
+        this.editor.setValue(defaultObj.value);
       },
       getContentName() {
         return this.$refs.cmpContent.contentName || 'ContentA';
-      },
-      getValue() {
-        return this.$refs.cmpContent.count || 0;
       }
     },
     mounted() {
@@ -155,6 +140,6 @@
 
   .editor {
     width: 100%;
-    height: 400px;
+    height: 500px;
   }
 </style>

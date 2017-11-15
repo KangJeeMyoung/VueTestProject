@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import CodeParser from './codeParser.js'
+    import CodeParser from '../codeParser.js'
 
     import Nav from './GuideNav.vue';
     import Content from './GuideContent.vue';
@@ -43,7 +43,7 @@
                 }
             },
             getVueFile: function(path){
-                const baseURI = '../static/';
+                const baseURI = '../../static/';
                 var parser = CodeParser.parse;
                 var vm = this;
                 var fileName = 'Content';

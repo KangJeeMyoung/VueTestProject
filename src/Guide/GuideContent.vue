@@ -22,6 +22,7 @@
 <script>
   import ContentA from './components/ContentA.vue';
   import ContentB from './components/ContentB.vue';
+  import Content from './components/Content.vue';
 
   import ace from 'brace';
   import 'brace/mode/javascript';

@@ -14,19 +14,17 @@
   export default {
     computed: {
       naviList: function(){
-        let list = [
+        return [
           {
-            name: 'Content'
+            name: 'ContentA'
           },
           {
-            name: 'Test1'
+            name: 'ContentB'
           },
           {
-            name: 'Test2'
+            name: 'Test'
           }
         ];
-
-        return list;
       }
     },
     data: function(){
@@ -35,12 +33,23 @@
     },
     methods: {
       toMove: function(name){
-        this.$router.push(
-                {
-                  name: 'Guide',
-                  contentName: name
-                }
-        );
+        this.$router.push({
+          name: 'GuideContent',
+          params: {
+            contentName: name,
+            count: 1
+          }
+        });
+
+        // 임시 Static...........................
+        if ( name == 'ContentA' ) {
+          name = 'Content';
+        } else if ( name == 'ContentB' ) {
+          name = 'Test1';
+        } else {
+          name = 'Test2';
+        }
+        //-------------------------------------
 
         this.$emit('getVueFile', name);
       }
@@ -52,6 +61,7 @@
 <style scoped>
   .navigate {
     width: 200px;
+    height: 668px;
     float: left;
     background: red;
   }

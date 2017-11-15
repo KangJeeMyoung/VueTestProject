@@ -9,7 +9,7 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/:contentName',
+      path: '/',
       name: 'App',
       alias: 'App',
       props: true,
@@ -17,22 +17,22 @@ export default new Router({
       component: App
     },
     {
-      path: '/Guide/:contentName',
+      path: '/Guide',
       name: 'Guide',
       alias: 'Guide',
+      component: GuideApp,
       props: true,
       meta: { scrollToTop: true },
-      component: GuideApp
-      //children: [
-      //  {
-      //    path: '/Grid/:contentName',
-      //    name: 'Content',
-      //    alias: '/Content',
-      //    component: Content,
-      //    //props: true,
-      //    meta: { scrollToTop: true }
-      //  }
-      //]
+      children: [
+        {
+          path: ':contentName',
+          name: 'GuideContent',
+          alias: '/GuideContent',
+          component: GuideApp,
+          props: true,
+          meta: { scrollToTop: true }
+        }
+      ]
     }
   ]
 })

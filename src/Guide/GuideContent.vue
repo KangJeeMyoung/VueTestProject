@@ -1,7 +1,23 @@
 <template>
   <div id="content" class="content">
-
     <h1>Content</h1>
+
+    <form id="resultForm" method="post" action="http://jsfiddle.net/api/post/vue/2.2.1/" target="check" style="display:none">
+      <select name="panel_html">
+        <option value="0" selected>HTML</option>
+      </select>
+      <select name="panel_js">
+        <option value="0" selected>JavaScript</option>
+      </select>
+      <select name="panel_css">
+        <option value="0" selected>CSS</option>
+      </select>
+
+      <textarea name='html'>{{ editorInfo.html.value }}</textarea>
+      <textarea name='js'>{{ editorInfo.javascript.value }}</textarea>
+      <textarea name='css'>{{ editorInfo.css.value }}</textarea>
+    </form>
+
 
     <ul class="tab-title">
       <li v-for="name in tabList" :class="{active: name===active}" @click="_tabChange(name)">
@@ -9,9 +25,13 @@
         <!--<span class="close" v-if="name !== 'default'" @click="closeTab(name)">&times;</span>-->
       </li>
     </ul>
-    
+
+
     <div class="editor" id="editor"></div>
-    <div class="test">{{ fileList }}</div>
+
+    <div style="height: 55px;text-align: right; margin-right: 100px;"><button @click="tryIt()" style="margin-top: 10px; height: 35px;">Try it</button></div>
+
+    <!--<div class="test">{{ fileList }}</div>-->
 
   </div>
 </template>
@@ -31,27 +51,32 @@
       ContentB
     },
     props: {
-      fileList,
+      fileList: {
+        type: Object
+        //default: Array()
+      },
       editorInfo: {
         type: Object,
-        default: {
-          html: {
-            theme: 'ace/theme/textmate',
-            mode: 'ace/mode/javascript',
-            readOnly: true,
-            value: 'html - '
-          },
-          javascript: {
-            theme: 'ace/theme/monokai',
-            mode: 'ace/mode/javascript',
-            readOnly: true,
-            value: 'javascript - '
-          },
-          css: {
-            theme: 'ace/theme/monokai',
-            mode: 'ace/mode/javascript',
-            readOnly: true,
-            value: 'css - '
+        default: function() {
+          return {
+            html: {
+              theme: 'ace/theme/textmate',
+              mode: 'ace/mode/javascript',
+              readOnly: true,
+              value: ''
+            },
+            javascript: {
+              theme: 'ace/theme/monokai',
+              mode: 'ace/mode/javascript',
+              readOnly: true,
+              value: ''
+            },
+            css: {
+              theme: 'ace/theme/monokai',
+              mode: 'ace/mode/javascript',
+              readOnly: true,
+              value: ''
+            }
           }
         }
       }
@@ -65,6 +90,9 @@
       }
     },
     computed:{
+      htmlValue() {
+        return this.$route.params.contentName || this.$route.params.name || 'ContentA';
+      },
       content(){
 //        var value = this.$route.params.contentName || this.$route.params.name || 'ContentA';
 //        this.editorInfo.html.value = value;
@@ -72,9 +100,19 @@
 //        this.editorInfo.css.value += value;
       }
     },
+    watch: {
+      '$route' (to, from) {
+        this._initSettings();
+      }
+    },
     methods: {
       _initSettings() {
         this.editor = ace.edit('editor');
+
+        var value = this.$route.params.contentName || 'ContentA';
+        this.editorInfo.html.value = value + ' / HTML HTML HTML HTML HTML';
+        this.editorInfo.javascript.value = value + ' / JAVASCRIPT JAVASCRIPT JAVASCRIPT JAVASCRIPT JAVASCRIPT JAVASCRIPT ';
+        this.editorInfo.css.value = value + ' / CSS CSS CSS CSS CSS CSS CSS CSS ';
 
         this._tabChange();
       },
@@ -102,6 +140,9 @@
         this.editor.getSession().setMode(defaultObj.mode);
         this.editor.setReadOnly(defaultObj.readOnly);
         this.editor.setValue(defaultObj.value);
+      },
+      tryIt() {
+        document.getElementById('resultForm').submit();
       },
       getContentName() {
         return this.$refs.cmpContent.contentName || 'ContentA';

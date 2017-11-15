@@ -65,6 +65,16 @@
         },
         mounted() {
             console.log('----------------------- Guide App -----------------------');
+
+            if ( !this.$route.params.contentName ) {
+                this.$router.push({
+                    name: 'GuideContent',
+                    params: {
+                        contentName: 'ContentA',
+                        count: 1
+                    }
+                });
+            }
         },
         watch: {
             vueFileList: function ( newData ) {

@@ -4,23 +4,8 @@
   </div>
 </template>
 
-<script>
-  export default {
-    mounted() {
-      console.log('----------------------- App -----------------------');
+<script></script>
 
-      // 임시로 Guide로 보내기.....
-      this.$router.push({
-        name: 'Guide',
-        params: {
-          contentName: 'ContentA',
-          count: 1
-        }
-      });
-    }
-  }
-
-</script>
 <style>
   .main {
     width: 100%;

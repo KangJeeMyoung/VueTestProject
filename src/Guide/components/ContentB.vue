@@ -1,8 +1,14 @@
 <template>
     <div class="ContentB">
-        <h1>Content B</h1>
-        <button @click="btnClick()">B Count++</button>
-        {{ 'content: '+name +' / count: '+ cnt }}
+        <h1>B</h1>
+
+        <div>
+            {{ name +' / count: '+ cnt }}
+        </div>
+
+        <div>
+            <button @click="btnClick()">B Count++</button>
+        </div>
     </div>
 </template>
 
@@ -30,7 +36,7 @@
             }
         },
         mounted() {
-            console.log('----------------------- Content B -----------------------');
+            console.log('----------------------- B -----------------------');
         }
     }
 </script>

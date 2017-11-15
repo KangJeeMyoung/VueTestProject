@@ -13,7 +13,7 @@
         <li><button @click="updateResult()">Check Result</button></li>
       </ul>      
     </div>  
-    <cmp-result ref="cmpResult" :fileList="vueFileList"></cmp-result>  
+    <cmp-result ref="cmpResult" :fileList="vueFileList"></cmp-result>
   </div>
 </template>
 
@@ -31,20 +31,25 @@ export default {
     'cmp-content': Content,
     'cmp-result': Result
   },
-  computed: {  
-  },
   data() {
     return {
       isLoading: false,
       isError: false,
       active: 'default',
-      tabList: ['CODE', 'HTML', 'JAVASCRIPT', 'CSS'],     
-      vueFileList: {}
+      tabList: ['CODE', 'HTML', 'JAVASCRIPT', 'CSS'],
+      //key -> file name, value -> {template: '', style: '', script: ''}
+      vueFileList: {
+        'test' : {
+          template: '<template><\/template>',
+          style: '<style><\/style>',
+          script: '<script><\/script>'
+        }
+      }
     }
   },
   methods: {
-    updateResult () {    
-      //this.$refs.cmpResult.update( this.$refs.contentView.getContentName(), this.$refs.contentView.getValue() );
+    updateResult () {
+      this.$refs.cmpResult.update( this.$refs.contentView.getContentName(), this.$refs.contentView.getValue() );
     },
     emitContent (id) {
       var contentView;
@@ -54,32 +59,32 @@ export default {
         this.$refs.cmpResult.update( contentView.getContentName(), contentView .getValue() );
       }
     },
-    getVueFile: function(path){    
-      const baseURI = '../static/';      
+    getVueFile: function(){    
+      const baseURI = '../static/';
+      let fileName = 'Content';
+    
       var parser = CodeParser.parse;
-      var vm = this;
-      var fileName = 'Content';
-      
-      if(this.vueFileList[fileName]){      
+      var me = this;
+
+      if(this.vueFileList[fileName]){
+        console.log('that file got already');
         return;
       }
 
       this.$http.get(`${baseURI}${fileName}.vue`)
         .then((result) => {
-          let tmpObj = {};
-          tmpObj[fileName] = parser(result.data);
-          if(tmpObj){          
-            vm.$set(vm.vueFileList, fileName, tmpObj);                    
-          }            
-      }, (err) => {});
+          let tmpObj;
+          tmpObj = parser(result.data);
+          if(!tmpObj){
+            Object.assign(me.vueFileList, tmpObj);
+          }
+      }, (err) => {
+        //TODO err proxy 가 가능한지 확인 해야된다. 우선은 axios에서 에러 뱉는게 더 빠름      
+      });     
     }
   },
   mounted() {
     console.log('----------------------- App -----------------------');
-  },
-  watch: {
-    vueFileList: function(newData){    
-    }
   }
 }
 </script>
@@ -111,6 +116,6 @@ export default {
   background: #eee; color: #333;
   position: relative;
 }
-.tab-title li.active {background: #31BFCF; color:#fff;}
+.tab-title li.active {background: #31BFCF; color:#fff;} 
 /*.tab-title .close {position: absolute; right:0; top: 0; line-height:1}*/
 </style>

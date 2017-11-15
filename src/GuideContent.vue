@@ -1,20 +1,17 @@
 <template>
   <div class="contentView">
-
-    <component ref="cmpContent" :is="content"></component>
+    <textarea class="editor"></textarea>
+    <!-- <component ref="cmpContent" :is="content"></component> -->
     <!--<div class="editor"></div>-->
-
   </div>
 </template>
 
 <script>
-  import ContentA from './components/ContentA.vue';
-  import ContentB from './components/ContentB.vue';
+  import Content from './components/Content.vue';
 
   export default {
-    components: {
-      ContentA,
-      ContentB
+    component: {
+      Content
     },
     props: {
       editorTheme: {
@@ -48,7 +45,6 @@
     },
     methods: {
       tabChange(name) {
-
       },
       // getHTMLTxt
       setEditorValue(value) {
@@ -77,5 +73,8 @@
 
 
 <style scoped>
-
+.editor{
+  width: 500px;
+  height: 100px;
+}
 </style>

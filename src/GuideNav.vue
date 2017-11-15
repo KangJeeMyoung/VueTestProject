@@ -1,45 +1,75 @@
 <template>
   <div class="navigate">
     <h1>Guide Navigate</h1>
-
-    <div>
-      <!--<button @click="buttonClick('ContentA')">Content A</button>-->
-      <!--<router-link :to="{ name: 'Content', params: { contentName:'ContentA', count:1 } }">Content A</router-link>-->
-      <router-link :to=routerLink(0)>Content A</router-link>
-    </div>
-    <div>
-      <!--<button @click="buttonClick('ContentB')">Content B</button>-->
-      <!--<router-link :to="{ name: 'Content', params: { contentName:'ContentB', count:1 } }">Content B</router-link>-->
-      <router-link :to=routerLink(1)>Content B</router-link>
-    </div>
-
+    <ul id="example-list">
+      <div class="cursor-hand" v-for="item in naviList" :key="item.id" @click="toMove(item.name)">
+          <h2>{{item.name}}</h2>   
+      </div>
+    </ul>
   </div>
 </template>
 
 <script>
   export default {
-    methods: {
-      routerLink( type ) {
-        var name = type == 0 ? 'ContentA' : 'ContentB';
+    data: function(){
+      return {
+          naviList: [
+          {
+            name: 'test',
+            params: {
+               a: 1,
+               b: 2
+            }
+          },
+          {
+            name: 'test2',
+            params: {
+               a: 1,
+               b: 2
+            }
+          },
+          {
+            name: 'test3',
+            params: {
+               a: 1,
+               b: 2
+            }
+          },
+          {
+            name: 'test4',
+            params: {
+               a: 1,
+               b: 2
+              }
+          }],
 
-        return {
-          name: 'Content',
-          params: {
-            contentName: name,
-            count: 1
-          }
-        }
       }
+    },    
+    methods: {
+      loadData: function(){      
+      },
+      toMove: function(path){
+        this.$router.push(
+            {
+              path: path
+            }
+        );
+
+        this.$emit('getVueFile', path);        
+      }      
     }
   }
 </script>
 
 
 <style scoped>
-  .navigate {
+.navigate {
     width: 200px;
     float: left;
     background: red;
-  }
+}
 
+.cursor-hand {
+  cursor:pointer;
+}
 </style>

@@ -3,11 +3,15 @@
 
     <h1>Result</h1>
     {{ 'content: '+contentName +' / count: '+ count }}
+    {{ fileList }}
   </div>
 </template>
 
 <script>
   export default {
+    props: [
+      'fileList'
+    ],
     data() {
       return {
         contentName: 'ContentA',
@@ -20,6 +24,9 @@
         this.count = cnt;
 
         console.log('updateResult!!!!!!!!!!!!!! name: ', name, ' / cnt: ' , cnt);
+      },
+      getProps: function(){
+        console.log(this.props);
       }
     },
     mounted() {

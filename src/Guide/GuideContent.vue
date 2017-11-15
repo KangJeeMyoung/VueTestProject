@@ -13,9 +13,7 @@
     <div class="editor" id="editorHtml"></div>
     <div class="editor" id="editorJavascript"></div>
     <div class="editor" id="editorCss"></div>
-
-    <!--<router-view ref="contentView" name="Content" @emitContent="emitContent"></router-view>-->
-    <!--<component ref="cmpContent" :is="content"></component>-->
+    <div class="test">{{ fileList }}</div>
   </div>
 </template>
 
@@ -29,6 +27,9 @@
   import 'brace/theme/monokai';
 
   export default {
+    props: [
+      'fileList'
+    ],
     components: {
       ContentA,
       ContentB
@@ -39,7 +40,8 @@
         tabList: ['HTML', 'JAVASCRIPT', 'CSS'],
         editorHtml: null,
         editorJavascript: null,
-        editorCss: null
+        editorCss: null,
+        result: ''
       }
     },
     computed:{
@@ -121,6 +123,9 @@
       },
       getValue() {
         return this.$refs.cmpContent.count || 0;
+      },
+      showData (){
+        console.log(this.fileList);
       }
     },
     mounted() {
@@ -156,5 +161,9 @@
   .editor {
     width: 100%;
     height: 400px;
+  }
+
+  .test {
+    background-color: #11ffee;
   }
 </style>

@@ -12,43 +12,28 @@
 
 <script>
   export default {
+    computed: {
+      naviList: function(){
+        let list = [
+          {
+            name: 'Content'
+          },
+          {
+            name: 'Test1'
+          },
+          {
+            name: 'Test2'
+          }
+        ];
+
+        return list;
+      }
+    },
     data: function(){
       return {
-        naviList: [
-          {
-            name: 'test',
-            params: {
-              a: 1,
-              b: 2
-            }
-          },
-          {
-            name: 'test2',
-            params: {
-              a: 1,
-              b: 2
-            }
-          },
-          {
-            name: 'test3',
-            params: {
-              a: 1,
-              b: 2
-            }
-          },
-          {
-            name: 'test4',
-            params: {
-              a: 1,
-              b: 2
-            }
-          }
-        ]
       }
     },
     methods: {
-      loadData: function(){
-      },
       toMove: function(name){
         this.$router.push(
                 {
@@ -57,7 +42,7 @@
                 }
         );
 
-        this.$emit('getVueFile', path);
+        this.$emit('getVueFile', name);
       }
     }
   }

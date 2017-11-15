@@ -19,7 +19,6 @@
 
     <button @click="tryIt()">Try it</button>
     <component ref="cmpContent" :is="content"></component>
-
   </div>
 </template>
 
@@ -28,6 +27,9 @@
   import ContentB from './components/ContentB.vue';
 
   export default {
+    props: [
+      'fileList'
+    ],
     components: {
       ContentA,
       ContentB

@@ -2,29 +2,62 @@
   <div class="navigate">
     <h1>Guide Navigate</h1>
 
-    <div>
-      <router-link :to=routerLink(0)>Content A</router-link>
-    </div>
-    <div>
-      <router-link :to=routerLink(1)>Content B</router-link>
-    </div>
-
+    <ul id="example-list">
+      <div class="cursor-hand" v-for="item in naviList" :key="item.id" @click="toMove(item.name)">
+        <h2>{{item.name}}</h2>
+      </div>
+    </ul>
   </div>
 </template>
 
 <script>
   export default {
-    methods: {
-      routerLink( type ) {
-        var name = type == 0 ? 'ContentA' : 'ContentB';
-
-        return {
-          name: 'Guide',
-          params: {
-            contentName: name,
-            count: 1
+    data: function(){
+      return {
+        naviList: [
+          {
+            name: 'test',
+            params: {
+              a: 1,
+              b: 2
+            }
+          },
+          {
+            name: 'test2',
+            params: {
+              a: 1,
+              b: 2
+            }
+          },
+          {
+            name: 'test3',
+            params: {
+              a: 1,
+              b: 2
+            }
+          },
+          {
+            name: 'test4',
+            params: {
+              a: 1,
+              b: 2
+            }
           }
-        }
+        ]
+      }
+    },
+    methods: {
+      loadData: function(){
+      },
+      toMove: function(name){
+        this.$router.push(
+                {
+                  name: 'Guide',
+                  contentName: name
+                }
+        );
+
+        this.$emit('getVueFile', path);
       }
     }
   }
@@ -38,4 +71,7 @@
     background: red;
   }
 
+  .cursor-hand {
+    cursor:pointer;
+  }
 </style>

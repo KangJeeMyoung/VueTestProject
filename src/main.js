@@ -37,12 +37,12 @@ new Vue({
   },
   created () {
     // 뷰가 생성되고 데이터가 이미 감시 되고 있을 때
-    this.baseInit()
+    //this.baseInit()
   },
-  watch: {
-    $route ( to, from ) {
-      this.baseInit();
-    }
-  },
+  //watch: {
+  //  $route ( to, from ) {
+  //    this.baseInit();
+  //  }
+  //},
   render: h => h(App)
 });

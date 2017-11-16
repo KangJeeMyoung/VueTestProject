@@ -8,15 +8,11 @@
         <cmp-nav v-on:getVueFile="getVueFile"></cmp-nav>
         <cmp-content :fileList="vueFileList"></cmp-content>
         <cmp-result ref="cmpResult" :fileList="vueFileList"></cmp-result>
-
-        <!--<cmp-content ref="cmpContent" @emitContent="emitContent"></cmp-content>-->
-        <!--<div><router-view name="Result"></router-view></div>-->
     </div>
 </template>
 
 <script>
     import CodeParser from './../codeParser.js';
-
     import Nav from './GuideNav.vue';
     import Content from './GuideContent.vue';
     import Result from './GuideResult.vue';
@@ -27,7 +23,16 @@
             'cmpContent': Content,
             'cmpResult': Result
         },
-        data() {
+        computed:{
+          initText: function () {
+            return {
+              value : `EVUI는 웹페이지의 핵심 구성요소인 Grid/Chart 컴포넌트를 제공하는 UI 프레임워크입니다.
+                       EVUI Grid와 Chart는 HTML/CSS/JS 및 SVG로 구현되어 있어 다양한 환경에 적용이 가능하며,
+                       Vue.JS를 기반으로 구현되어 대량의 데이터를 고속으로 처리합니다.`
+            }
+          }
+        },
+        data: function () {
             return {
                 isLoading: false,
                 isError: false,
@@ -35,7 +40,7 @@
             }
         },
         methods: {
-            emitContent(id) {
+            emitContent: function (id) {
                 var contentView;
 
                 if ( id == 'updateResult' ) {
@@ -43,7 +48,7 @@
                     this.$refs.cmpResult.update( contentView.getContentName(), contentView .getValue() );
                 }
             },
-            getVueFile: function(path){
+            getVueFile: function (path) {
                 const baseURI = '../../static/';
                 var parser = CodeParser.parse;
                 var vm = this;
@@ -55,31 +60,28 @@
 
                 this.$http.get(`${baseURI}${fileName}.vue`)
                         .then((result) => {
-                    let tmpObj = {};
-                    tmpObj[fileName] = parser(result.data);
+                    let tmpObj = parser(result.data);
                     if(tmpObj){
                         vm.$set(vm.vueFileList, fileName, tmpObj);
                     }
                 }, (err) => {});
             }
         },
-        mounted() {
-            console.log('----------------------- Guide App -----------------------');
+        mounted: function(){
 
-            if ( !this.$route.params.contentName ) {
-                this.$router.push({
-                    name: 'GuideContent',
-                    params: {
-                        contentName: 'ContentA',
-                        count: 1
-                    }
-                });
-            }
-        },
-        watch: {
-            vueFileList: function ( newData ) {
-            }
+//            if ( !this.$route.params.contentName ) {
+//                this.$router.push({
+//                    name: 'GuideContent',
+//                    params: {
+//                        contentName: 'ContentA',
+//                        count: 1
+//                    }
+//                });
+//            }
+//
+//            this.getVueFile('ContentA');
         }
+
     }
 </script>
 

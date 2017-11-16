@@ -1,8 +1,6 @@
 <template>
   <div id="result" class="result">
-
     <component ref="cmpContent" :is="content"></component>
-
   </div>
 </template>
 

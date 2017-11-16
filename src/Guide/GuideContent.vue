@@ -39,8 +39,6 @@
 <script>
   import ContentA from './components/ContentA.vue';
   import ContentB from './components/ContentB.vue';
-  import Content from './components/Content.vue';
-
   import ace from 'brace';
   import 'brace/mode/javascript';
   import 'brace/theme/monokai';
@@ -90,18 +88,19 @@
       }
     },
     computed:{
-      htmlValue() {
-        return this.$route.params.contentName || this.$route.params.name || 'ContentA';
-      },
-      content(){
-//        var value = this.$route.params.contentName || this.$route.params.name || 'ContentA';
-//        this.editorInfo.html.value = value;
-//        this.editorInfo.javascript.value += value;
-//        this.editorInfo.css.value += value;
+      initText: function(){
+        return {
+          value : `EVUI는 웹페이지의 핵심 구성요소인 Grid/Chart 컴포넌트를 제공하는 UI 프레임워크입니다.
+                   EVUI Grid와 Chart는 HTML/CSS/JS 및 SVG로 구현되어 있어 다양한 환경에 적용이 가능하며,
+                   Vue.JS를 기반으로 구현되어 대량의 데이터를 고속으로 처리합니다.`
+        }
       }
     },
     watch: {
-      '$route' (to, from) {
+      $route: function (to, from) {
+        this._initSettings();
+      },
+      fileList: function ( newData ) {
         this._initSettings();
       }
     },
@@ -110,9 +109,10 @@
         this.editor = ace.edit('editor');
 
         var value = this.$route.params.contentName || 'ContentA';
-        this.editorInfo.html.value = value + ' / HTML HTML HTML HTML HTML';
-        this.editorInfo.javascript.value = value + ' / JAVASCRIPT JAVASCRIPT JAVASCRIPT JAVASCRIPT JAVASCRIPT JAVASCRIPT ';
-        this.editorInfo.css.value = value + ' / CSS CSS CSS CSS CSS CSS CSS CSS ';
+
+        this.editorInfo.html.value = this.fileList[value].template;
+        this.editorInfo.javascript.value = this.fileList[value].script;
+        this.editorInfo.css.value = this.fileList[value].style;
 
         this._tabChange();
       },
@@ -146,14 +146,9 @@
       },
       getContentName() {
         return this.$refs.cmpContent.contentName || 'ContentA';
-      },
-      showData (){
-        console.log(this.fileList);
       }
     },
     mounted() {
-      console.log('----------------------- Content -----------------------');
-
       this._initSettings();
     }
   }

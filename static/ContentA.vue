@@ -8,11 +8,11 @@
       <h1>Content</h1>
       <ul class="tab-title">
         <li v-for="name in tabList" :class="{active: name===active}" @click="tabChange(name)" :key="name.id">
-          <span>{{ name }}</span>      
+          <span>{{ name }}</span>
         </li>
         <li><button @click="updateResult()">Check Result</button></li>
-      </ul>      
-    </div>  
+      </ul>
+    </div>
     <cmp-result ref="cmpResult" :fileList="vueFileList"></cmp-result>
   </div>
 </template>
@@ -53,10 +53,10 @@ export default {
         this.$refs.cmpResult.update( contentView.getContentName(), contentView .getValue() );
       }
     },
-    getVueFile: function(){    
+    getVueFile: function(){
       const baseURI = '../static/';
       let fileName = 'Content';
-    
+
       var parser = CodeParser.parse;
       var me = this;
 
@@ -73,8 +73,8 @@ export default {
             Object.assign(me.vueFileList, tmpObj);
           }
       }, (err) => {
-        //TODO err proxy 가 가능한지 확인 해야된다. 우선은 axios에서 에러 뱉는게 더 빠름      
-      });     
+        //TODO err proxy 가 가능한지 확인 해야된다. 우선은 axios에서 에러 뱉는게 더 빠름
+      });
     }
   },
   mounted() {
@@ -110,6 +110,5 @@ export default {
   background: #eee; color: #333;
   position: relative;
 }
-.tab-title li.active {background: #31BFCF; color:#fff;} 
-/*.tab-title .close {position: absolute; right:0; top: 0; line-height:1}*/
+.tab-title li.active {background: #31BFCF; color:#fff;}
 </style>

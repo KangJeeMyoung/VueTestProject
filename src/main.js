@@ -5,8 +5,6 @@ import Axios from 'axios'
 import App from './App.vue'
 import router from './router.js'
 
-//Vue.config.productionTip = false
-
 Vue.prototype.$http = Axios;
 
 new Vue({
@@ -15,7 +13,7 @@ new Vue({
   data() {
     return {
       isLoading: false,
-      isError: false      
+      isError: false
     }
   },
   methods: {

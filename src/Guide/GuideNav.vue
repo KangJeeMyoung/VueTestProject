@@ -22,9 +22,6 @@
           },
           {
             name: 'ContentB'
-          },
-          {
-            name: 'Test'
           }
         ];
       }
@@ -42,17 +39,6 @@
             count: 1
           }
         });
-
-        // 임시 Static...........................
-        if ( name == 'ContentA' ) {
-          name = 'Content';
-        } else if ( name == 'ContentB' ) {
-          name = 'Test1';
-        } else {
-          name = 'Test2';
-        }
-        //-------------------------------------
-
         this.$emit('getVueFile', name);
       }
     }

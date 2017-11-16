@@ -56,9 +56,11 @@
 
 <style scoped>
   .result {
-    width: calc(calc(100% - 380px)/2);
-    height: 668px;
-    float: left;
+    position: absolute;
+    left: 50%;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
     background: greenyellow;
   }
 </style>

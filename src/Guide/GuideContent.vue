@@ -162,9 +162,12 @@
 
 <style scoped>
   .content {
-    width: calc(calc(100% - 200px)/2);
-    float: left;
+    position: absolute;
     background: blue;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    width: 50%;
   }
 
   .tab-title {

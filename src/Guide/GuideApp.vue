@@ -8,7 +8,7 @@
                 <img src="../../images/company_logo_exem.png"/>
             </div>
             <div class="top">
-                <h1>Guide App</h1>
+                <p>Guide App</p>
             </div>
         </div>
 
@@ -102,10 +102,10 @@
     .guide-app {
         width: 100%;
         height: 100%;
-        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        font-family: Noto Sans KR, Nanum Barun Gothic, '나눔바른고딕', sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        text-align: center;
+        /*text-align: center;*/
         color: #2c3e50;
     }
     .guide-app .header {
@@ -116,6 +116,7 @@
         height: 60px;
         right: 0px;
         margin: 0 auto;
+        text-align: center;
         background: white;
     }
     .guide-app .header .logo {
@@ -132,6 +133,9 @@
     .guide-app .header .top {
         position: relative;
         bottom: 10px;
+    }
+    .guide-app .header .top > p {
+        font-size: 20px;
     }
 
     .guide-app .container {

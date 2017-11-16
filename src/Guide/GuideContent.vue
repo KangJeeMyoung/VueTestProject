@@ -110,9 +110,12 @@
 
         var value = this.$route.params.contentName || 'ContentA';
 
-        this.editorInfo.html.value = this.fileList[value].template;
-        this.editorInfo.javascript.value = this.fileList[value].script;
-        this.editorInfo.css.value = this.fileList[value].style;
+        if(this.fileList[value]){
+          this.editorInfo.html.value = this.fileList[value].template;
+          this.editorInfo.javascript.value = this.fileList[value].script;
+          this.editorInfo.css.value = this.fileList[value].style;
+        }
+
 
         this._tabChange();
       },

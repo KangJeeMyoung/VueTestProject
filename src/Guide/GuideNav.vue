@@ -4,10 +4,10 @@
       <p>Guide Navigate</p>
     </div>
 
-    <ul id="example-list">
-      <div class="cursor-hand" v-for="item in naviList" :key="item.id" @click="toMove(item.name)">
-        <h2>{{item.name}}</h2>
-      </div>
+    <ul>
+      <li v-for="item in naviList" :key="item.id" @click="toMove(item.name)" :class="{ active: isActive(item.name) }">
+        <p>{{item.name}}</p>
+      </li>
     </ul>
   </div>
 </template>
@@ -28,6 +28,7 @@
     },
     data: function(){
       return {
+        activeItem: ''
       }
     },
     methods: {
@@ -40,6 +41,11 @@
           }
         });
         this.$emit('getVueFile', name);
+
+        this.activeItem = name;
+      },
+      isActive: function(menuItem) {
+        return this.activeItem === menuItem;
       }
     }
   }
@@ -54,15 +60,48 @@
     top:0px;
     bottom:0px;
     overflow: auto;
-    background: red;
+    /*background: red;*/
   }
 
   .cursor-hand {
     cursor:pointer;
   }
 
+  .navigate .naviTitle {
+    height: 50px;
+    border: 1px solid;
+  }
   .navigate .naviTitle > p {
-    font-size: 28px;
-    color: aqua;
+    font-size: 16px;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .navigate > ul {
+    border: 1px solid #e5e5e5;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 500px;
+  }
+  .navigate > ul > li {
+    cursor: pointer;
+    padding: 10px 0px 10px 20px;
+    margin: 0;
+    height: 30px;
+  }
+  .navigate > ul > li.active {
+    color: #409eff;
+    cursor: default;
+    font-weight: bold;
+  }
+  .navigate > ul > li:hover {
+    color: #409eff;
+    background-color: lightgray;
+  }
+  .navigate > ul > li > p {
+    padding: 0;
+    margin: 0;
   }
 </style>

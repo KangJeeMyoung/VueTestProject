@@ -8,7 +8,7 @@
                 <img src="../../images/company_logo_exem.png"/>
             </div>
             <div class="top">
-                <p>Guide App</p>
+                <p>Exem Guide Sample</p>
             </div>
         </div>
 
@@ -102,10 +102,9 @@
     .guide-app {
         width: 100%;
         height: 100%;
-        font-family: Noto Sans KR, Nanum Barun Gothic, '나눔바른고딕', sans-serif;
+        font: normal 12px/14px tahoma,arial,verdana,sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        /*text-align: center;*/
         color: #2c3e50;
     }
     .guide-app .header {
@@ -113,11 +112,12 @@
         left: 0px;
         top: 0px;
         bottom: 0px;
-        height: 60px;
+        height: 59px;
         right: 0px;
         margin: 0 auto;
         text-align: center;
         background: white;
+        border: 1px solid #e5e5e5;
     }
     .guide-app .header .logo {
         position: relative;
@@ -132,7 +132,6 @@
     }
     .guide-app .header .top {
         position: relative;
-        bottom: 10px;
     }
     .guide-app .header .top > p {
         font-size: 20px;
@@ -153,5 +152,27 @@
         right:0px;
         left:250px;
         bottom:0px;
+    }
+
+
+    button {
+      height: 29px;
+      width: 100px;
+      border-radius: 6px;
+      color: #fff;
+      background-image: -webkit-linear-gradient(top, #55d1ff 0%, #00b4f7 100%);
+      border: 1px solid #4d899d;
+    }
+    button:hover {
+      border-radius: 6px;
+      color: #fff;
+      background-image: -webkit-linear-gradient(top, #40abf5 0%, #0091f7 100%);
+      border: 1px solid #4d899d;
+      text-shadow: 0px 1px 0px rgba(16,126,173,.9);
+      cursor: pointer;
+    }
+
+    p {
+      font-size: 15px;
     }
 </style>

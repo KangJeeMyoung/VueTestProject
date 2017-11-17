@@ -59,22 +59,16 @@
     left:0px;
     top:0px;
     bottom:0px;
+    height: 100%;
     overflow: auto;
-    /*background: red;*/
   }
-
-  .cursor-hand {
-    cursor:pointer;
-  }
-
   .navigate .naviTitle {
     height: 50px;
-    border: 1px solid;
+    border: 1px solid #00baff;
+    background: #00baff;
   }
   .navigate .naviTitle > p {
-    font-size: 16px;
-    color: black;
-    font-weight: bold;
+    color: white;
     text-align: center;
   }
 
@@ -83,25 +77,26 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    height: 500px;
+    height: calc(100% - 54px);
   }
   .navigate > ul > li {
     cursor: pointer;
     padding: 10px 0px 10px 20px;
     margin: 0;
-    height: 30px;
+    height: 20px;
   }
   .navigate > ul > li.active {
-    color: #409eff;
+    color: #000 !important;
     cursor: default;
     font-weight: bold;
   }
   .navigate > ul > li:hover {
-    color: #409eff;
-    background-color: lightgray;
+    color: #00baff;
+    background-color: #eee;
   }
   .navigate > ul > li > p {
     padding: 0;
     margin: 0;
+    font-size: 13px;
   }
 </style>

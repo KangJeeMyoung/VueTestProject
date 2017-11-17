@@ -1,6 +1,6 @@
 <template>
   <div id="content" class="content">
-    <h1>Content</h1>
+    <!--<h1>Content</h1>-->
 
     <form id="resultForm" method="post" action="http://jsfiddle.net/api/post/vue/2.2.1/" target="check" style="display:none">
       <select name="panel_html">
@@ -29,7 +29,7 @@
 
     <div class="editor" id="editor"></div>
 
-    <div style="height: 55px;text-align: right; margin-right: 100px;"><button @click="tryIt()" style="margin-top: 10px; height: 35px;">Try it</button></div>
+    <div class="tryItDiv"><button @click="tryIt()">Try it</button></div>
 
     <!--<div class="test">{{ fileList }}</div>-->
 
@@ -64,13 +64,15 @@
               value: ''
             },
             javascript: {
-              theme: 'ace/theme/monokai',
+//              theme: 'ace/theme/monokai',
+              theme: 'ace/theme/textmate',
               mode: 'ace/mode/javascript',
               readOnly: true,
               value: ''
             },
             css: {
-              theme: 'ace/theme/monokai',
+//              theme: 'ace/theme/monokai',
+              theme: 'ace/theme/textmate',
               mode: 'ace/mode/javascript',
               readOnly: true,
               value: ''
@@ -107,6 +109,8 @@
     methods: {
       _initSettings() {
         this.editor = ace.edit('editor');
+        this.editor.$blockScrolling = Infinity; // ace.js 현재버전에서 warning 문제 해결을 위함
+        this.editor.setShowPrintMargin(false); // editor의 vertical line 숨기기
 
         var value = this.$route.params.contentName || 'ContentA';
 
@@ -115,7 +119,6 @@
           this.editorInfo.javascript.value = this.fileList[value].script;
           this.editorInfo.css.value = this.fileList[value].style;
         }
-
 
         this._tabChange();
       },
@@ -161,33 +164,48 @@
 <style scoped>
   .content {
     position: absolute;
-    background: blue;
     left: 0px;
     top: 0px;
     bottom: 0px;
     width: 50%;
+    border-bottom: 1px solid #e5e5e5;
   }
 
   .tab-title {
-    height: 32px; margin: 20px 0 0 0; padding:0;
-    border-bottom: 1px solid #ccc;
+    height: 32px; margin: 18px 0 20px 0;
+    border-bottom: 1px solid #e5e5e5;
     list-style: none;
+    padding: 0 0 1px 20px;
   }
   .tab-title li {
-    min-width: 100px; height: 32px; line-height:32px; float: left; margin-right: 10px;
+    min-width: 100px; height: 32px; line-height:32px; float: left; margin-right: 1px;
     text-align:center; cursor: pointer;
-    background: #eee; color: #333;
+    background: #eee; color: #000;
     position: relative;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
   }
-  .tab-title li.active {background: #31BFCF; color:#fff;}
-  /*.tab-title .close {position: absolute; right:0; top: 0; line-height:1}*/
+  .tab-title li.active {
+    background: #fff; color: #000 !important;
+    font-weight: bold;
+  }
+  .tab-title li:hover {
+    background: #fff; color: #00baff;
+  }
+  .tab-title li > span {
+    font-size: 13px;
+  }
 
   .editor {
     width: 100%;
-    height: 500px;
+    height: calc(100% - 160px);
   }
 
-  .test {
-    background-color: #11ffee;
+  .tryItDiv {
+    height: 55px;
+    text-align: right;
+    margin: 10px 100px 0 0;
   }
 </style>

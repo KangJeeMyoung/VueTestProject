@@ -38,6 +38,8 @@
 
 <script>
   import ContentA from './components/ContentA.vue';
+  import ContentA_1 from './components/ContentA_1.vue';
+  import ContentA_2 from './components/ContentA_2.vue';
   import ContentB from './components/ContentB.vue';
   import ace from 'brace';
   import 'brace/mode/javascript';
@@ -46,6 +48,8 @@
   export default {
     components: {
       ContentA,
+      ContentA_1,
+      ContentA_2,
       ContentB
     },
     props: {

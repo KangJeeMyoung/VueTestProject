@@ -7,6 +7,9 @@
 <script></script>
 
 <style>
+  body {
+    overflow: hidden;
+  }
   .main {
     width: 100%;
     height: 100%;

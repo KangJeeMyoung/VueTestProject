@@ -7,6 +7,11 @@
     <ul>
       <li v-for="item in naviList" :key="item.id" @click="toMove(item.name)" :class="{ active: isActive(item.name) }">
         <p>{{item.name}}</p>
+        <ul>
+          <li v-for="i in item.children" @click.stop="toMove(i.name)">
+            <p>{{i.name}}</p>
+          </li>
+        </ul>
       </li>
     </ul>
   </div>
@@ -18,7 +23,12 @@
       naviList: function(){
         return [
           {
-            name: 'ContentA'
+            name: 'ContentA',
+            children: [{
+              name: 'ContentA_1'
+            }, {
+              name: 'ContentA_2'
+            }]
           },
           {
             name: 'ContentB'
@@ -72,6 +82,7 @@
     text-align: center;
   }
 
+
   .navigate > ul {
     border: 1px solid #e5e5e5;
     list-style: none;
@@ -83,20 +94,30 @@
     cursor: pointer;
     padding: 10px 0px 10px 20px;
     margin: 0;
-    height: 20px;
   }
-  .navigate > ul > li.active {
-    color: #000 !important;
-    cursor: default;
-    font-weight: bold;
+  .navigate > ul > li > p {
+    margin: 10px 0 10px 0;
   }
-  .navigate > ul > li:hover {
+  /*.navigate > ul > li > p:active {*/
+    /*color: #000 !important;*/
+    /*cursor: default;*/
+    /*font-weight: bold;*/
+  /*}*/
+  .navigate > ul > li > p:hover {
     color: #00baff;
     background-color: #eee;
   }
-  .navigate > ul > li > p {
-    padding: 0;
+
+  .navigate > ul > li > ul > li {
+    list-style: none;
+    padding: 10px 0px 10px 0px;
     margin: 0;
-    font-size: 13px;
+  }
+  .navigate > ul > li > ul > li > p {
+    margin: 0;
+  }
+  .navigate > ul > li > ul > li > p:hover {
+    color: #00baff;
+    background-color: #eee;
   }
 </style>
